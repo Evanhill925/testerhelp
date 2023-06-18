@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bills Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/bc1a30f7dd.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body>
+
+    <section class="header-form">
+        <h1>Bills Tracker</h1> 
+
+        <form action="/addBill" method="POST">
+            <input type="text" placeholder="BILL" name="billName">
+            <input type="number" placeholder="AMOUNT" name="billAmount">
+            <button type="submit">+</button>
+        </form>
+    
+    </section>
+
+    <section class="total-section">
+        <h3>Total Amount:</h3>
+        <h3>$</h3> <!-- total amount in USD currency - MATH! -->
+    </section>
+
+
+    <div>
+
+        <section class="bills"> <!-- put border/outline on top -->
+        <% for (let i = 0; i < info.length; i++) {%>
+            <section class="bill-info">
+                <section>
+                    <div class="icon-border"></div>
+                </section>
+                
+                <div class="input-and-icons">                  
+                    <section class="bill-input">
+                        <span class="bill-name"><%= info[i].billName %></span>
+                        <span class="amount"><%= info[i].billAmount %></span> <!-- figure out how to make it USD currency with decimal in USD currency-->
+                    </section>
+                    <section class="icons">
+                        <i class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
+                        <!-- <i class="fa-solid fa-trash fa-sm" style="color: #030303;"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" class="fa-trash"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                    </section>
+                </div>
+                
+            </section>
+        <% } %>
+        </section>
+
+        <section class="img-section">
+            <img src="images/jp-valery-mwNkPv3d_EI-unsplash.jpg">
+            <!-- used by -->
+        </section>
+
+    </div>
+
+
+
+    <script src="js/main.js"></script>
+</body>
+</html>

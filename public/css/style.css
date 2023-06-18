@@ -1,0 +1,90 @@
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+body > div {
+    display: flex;  /* this code puts bill info and img side by side */
+
+}
+
+section{
+    padding: 10px 10px;
+}
+
+/* TOP OF PAGE  */
+
+.header-form{
+    height: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* BILLS SECTION */
+
+.bills{
+    height: 100px;
+    width: 50%;
+}
+
+.bill-info{
+    display: flex;
+    height: 100%;
+    border-top: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.icon-border{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.bill-input{
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+}
+
+.bill-name{
+    padding-bottom: 10px;
+}
+
+
+/* TOTAL AMOUNT SECTION */
+
+.total-section{
+    display: flex;
+}
+
+h3{
+    margin-right: 20px;
+}
+
+/*icons*/
+
+.input-and-icons{
+    display: flex;
+}
+
+.icons{
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    gap: 10px;
+}
+
+/* image */
+
+.img-section{
+    height: 100%;
+}
+
+img{
+    height: 10%;
+}
