@@ -6,22 +6,6 @@ require('dotenv').config()
 const uri = process.env.DB_STRING
 const client = new MongoClient(uri);
 
-// make a function that awaits mongo connection before allowing requests
-async function connectToMongo() {
-    try {
-        await client.connect();
-        console.log("Connected correctly to server");
-    } catch (err) {
-        console.log(err.stack);
-    }
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`)
-    })
-}
-connectToMongo().catch(console.error);
-
-
-console.log("here first")
 app.get("/", async (req, res) => {
     let my_item = req.params.my_item;
     let item = await client.db("Todo")
@@ -32,6 +16,21 @@ app.get("/", async (req, res) => {
                 })
 .catch( error => console.error(error))
 })
+
+// make a function that awaits mongo connection before allowing requests
+async function connectToMongo() {
+    try {
+        await client.connect();
+        console.log("Connected correctly to server");
+    } catch (err) {
+        console.log(err.stack);
+}
+}
+connectToMongo().catch(console.error);
+
+
+console.log("here first")
+
 
 
 // client.connect(err => {
@@ -80,6 +79,6 @@ app.delete('/deleteBill', (req, res) => {
 
 
 
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`)
-// })
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
+})
