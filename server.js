@@ -9,12 +9,15 @@ let db,
     dbConnectionStr = process.env.DB_STRING,
     dbName = 'Todo'
 
-MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
+
+    async function connectDB(){
+await MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 .then(client => {
     console.log(`Connected to ${dbName} Database`)
     db = client.db(dbName)
 })
-
+    }
+   
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
@@ -41,6 +44,7 @@ app.get('/',async (request, response)=>{
     response.render('index.ejs', { items: todoItems})
 })
 
+
 app.post('/addBill', (req, res) => {
     db.collection('Todos').insertOne({ billName: req.body.billName, billAmount: req.body.billAmount})
     .then(result => {
@@ -65,3 +69,4 @@ app.delete('/deleteBill', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })
+connectDB()

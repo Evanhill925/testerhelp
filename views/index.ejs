@@ -32,7 +32,7 @@
     <div>
 
         <section class="bills"> <!-- put border/outline on top -->
-        <% for (let i = 0; i < info.length; i++) {%>
+        <% for (let i = 0; i < items.length; i++) {%>
             <section class="bill-info">
                 <section>
                     <div class="icon-border"></div>
@@ -40,8 +40,8 @@
                 
                 <div class="input-and-icons">                  
                     <section class="bill-input">
-                        <span class="bill-name"><%= info[i].billName %></span>
-                        <span class="amount"><%= info[i].billAmount %></span> <!-- figure out how to make it USD currency with decimal in USD currency-->
+                        <span class="bill-name"><%= items[i].billName %></span>
+                        <span class="amount"><%= items[i].billAmount %></span> <!-- figure out how to make it USD currency with decimal in USD currency-->
                     </section>
                     <section class="icons">
                         <i class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
