@@ -3,8 +3,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000
 require('dotenv').config()
-const uri = process.env.DB_STRING
-const client = new MongoClient(uri, { useUnifiedTopology: true });
+const KEY = process.env.DB_STRING
+const client = new MongoClient(KEY, { useUnifiedTopology: true });
 
 app.get("/", async (req, res) => {
     let my_item = req.params.my_item;
