@@ -28,7 +28,7 @@ app.use(express.json())
 
 
 app.get('/', async (req, res) => {
-    await db.collection('bills').find().toArray()
+    await db.collection('Todos').find().toArray()
     .then( data => {
         res.render('index.ejs', { info: data})
     })
@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
 
 
 app.post('/addBill', (req, res) => {
-    db.collection('bills').insertOne({ billName: req.body.billName, billAmount: req.body.billAmount})
+    db.collection('Todos').insertOne({ billName: req.body.billName, billAmount: req.body.billAmount})
     .then(result => {
         res.redirect('/')
     })
@@ -47,7 +47,7 @@ app.post('/addBill', (req, res) => {
 
 
 app.delete('/deleteBill', (req, res) => {
-    db.collection('bills').deleteOne( { billName: req.body.billNameS})
+    db.collection('Todos').deleteOne( { billName: req.body.billNameS})
     .then(result => {
         console.log('Bill Deleted')
         res.json('Bill Deleted')
