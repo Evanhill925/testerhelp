@@ -14,6 +14,9 @@ async function connectToMongo() {
     } catch (err) {
         console.log(err.stack);
     }
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`)
+    })
 }
 connectToMongo().catch(console.error);
 
