@@ -1,51 +1,19 @@
-const { MongoClient } = require('mongodb');
+const MongoClient = require('mongodb').MongoClient
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000
+
 require('dotenv').config()
-const KEY = process.env.DB_STRING
-const client = new MongoClient(KEY, { useUnifiedTopology: true });
 
-app.get("/", async (req, res) => {
-    let my_item = req.params.my_item;
-    let item = await client.db("Todo")
-                .collection("Todos")
-                .find().toArray()
-                .then( data => {
-                 return res.render('index.ejs', { info: data})
-                })
-.catch( error => console.error(error))
+let db,
+    dbConnectionStr = process.env.DB_STRING,
+    dbName = 'Todo'
+
+MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
+.then(client => {
+    console.log(`Connected to ${dbName} Database`)
+    db = client.db(dbName)
 })
-
-// make a function that awaits mongo connection before allowing requests
-async function connectToMongo() {
-    try {
-        await client.connect();
-        console.log("Connected correctly to server");
-    } catch (err) {
-        console.log(err.stack);
-}
-}
-connectToMongo().catch(console.error);
-
-
-console.log("here first")
-
-
-
-// client.connect(err => {
-//     if(err){ console.error(err); return false;}
-//     // connection to mongo is successful, listen for requests
-//     app.listen(PORT, () => {
-//         console.log("listening for requests");
-//     })
-// });
-// MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
-// .then(client => {
-//     console.log(`Connected to ${dbName} Database`)
-//     db = client.db(dbName)
-// })
-console.log("here third")
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
@@ -54,7 +22,13 @@ app.use(express.json())
 
 
 
-
+app.get('/', async (req, res) => {
+    await db.collection('Todos').find().toArray()
+    .then( data => {
+        res.render('index.ejs', { info: data})
+    })
+    .catch( error => console.error(error))
+})
 
 
 
@@ -77,8 +51,16 @@ app.delete('/deleteBill', (req, res) => {
 
 })
 
-
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
+MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
+.then(client => {
+    console.log(`Connected to ${dbName} Database`)
+    db = client.db(dbName)
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`)
+    })
+    
 })
+
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`)
+// })
