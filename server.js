@@ -8,13 +8,18 @@ require('dotenv').config()
 let db,
     dbConnectionStr = process.env.DB_STRING,
     dbName = 'Todo'
-
-MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
+async function main() {
+await MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 .then(client => {
-    console.log(`Connected to ${dbName} Database`)
-    db = client.db(dbName)
+    
+   db = client.db(dbName)
+   app.listen(PORT, () => {
+    console.log("listening for requests");
 })
-
+   return console.log(`Connected to ${dbName} Database`)
+})
+}
+main().catch(console.error)
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
@@ -23,8 +28,8 @@ app.use(express.json())
 
 
 app.get('/', async (req, res) => {
-    await db.collection('Todos').find().toArray()
-    return ( data => {
+    await db.collection('bills').find().toArray()
+    .then( data => {
         res.render('index.ejs', { info: data})
     })
     .catch( error => console.error(error))
@@ -53,6 +58,4 @@ app.delete('/deleteBill', (req, res) => {
 
 
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-})
+
