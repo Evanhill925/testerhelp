@@ -24,7 +24,7 @@ app.use(express.json())
 
 app.get('/', async (req, res) => {
     await db.collection('Todos').find().toArray()
-    .then( data => {
+    return ( data => {
         res.render('index.ejs', { info: data})
     })
     .catch( error => console.error(error))
@@ -51,15 +51,7 @@ app.delete('/deleteBill', (req, res) => {
 
 })
 
-MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
-.then(client => {
-    console.log(`Connected to ${dbName} Database`)
-    db = client.db(dbName)
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`)
-    })
-    
-})
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
